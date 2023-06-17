@@ -55,10 +55,12 @@ if "disabled" not in st.session_state:
     st.session_state.disabled = False
 
 # On Submit Button Click
+ai_handler_err=[False,""]
 with st.form('summarize_form', clear_on_submit=True):
     submitted = st.form_submit_button('Submit')
-    if not open_ai_key.startswith('sk-'):
-        st.write('Enter a valid key')
+    if submitted and not open_ai_key.startswith('sk-'):
+        ai_handler_err[0]=True
+        ai_handler_err[1]="Enter Valid Key"
 
     if submitted and len(github_link)>0 and open_ai_key.startswith('sk-'):
         
@@ -75,31 +77,38 @@ with st.form('summarize_form', clear_on_submit=True):
                 for repo_count,repo in stqdm(enumerate(list_repo)):
                     print(repo,repo_count)
                    
-                    ans=ai_handler.start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness)
+                    ans,err=ai_handler.start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness)
+                    if not ans:
+                        result=""
+                        ai_handler_err[0]=True
+                        ai_handler_err[1]=err
+                        break
+
                     final_answer.append(ans)
 
                 
                 
-            except: 
+            except Exception as e:
+                print(e)
                 st.info(f'Only {repo_count+1} was analyzed. Error Occured, Please change key or run code again')
            
-            # print("aa")
-            # print(final_answer)
-            final_answer=[i for i in final_answer if type(i)==dict]
-            final_answer=sorted(final_answer, key=lambda i: i['score'],reverse=True)
-            # with open('result.json','w') as f:
-            #     json.dump(final_answer,f,indent=4)
-            # print(final_answer)
-            # print("***************8")
-            # print("bb")
+            if not ai_handler_err[0]:
+                
+                final_answer=[i for i in final_answer if type(i)==dict]
+                final_answer=sorted(final_answer, key=lambda i: i['score'],reverse=True)
 
         except:
             result=""
+            ai_handler_err[0]=True
+            ai_handler_err[1]='Please enter a correct github link'
             flag=True
             list_repo.append('Please enter a correct github link')
 
+if ai_handler_err[0]:
+    st.info(ai_handler_err[1])
 
-if submitted and not len(list_repo):
+
+if submitted and not len(list_repo) and not ai_handler_err[0]:
     st.info('User has No wroking Repository')
 
 if flag:
@@ -118,7 +127,7 @@ if len(result):
         st.text("***********************************************************************************")
         st.text("Here are rest top Three Repo from the profile ")
         st.write([{
-            str(i)+"Complex Repository : ": os.path.basename(final_answer[i]['repository']),
+            str(i+1)+" Complex Repository : ": os.path.basename(final_answer[i]['repository']),
             "Reason": final_answer[i]['reasons'],
             "Repo Link " : final_answer[i]['repository']
         } for i in range(3)])

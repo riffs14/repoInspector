@@ -18,7 +18,7 @@ load_dotenv()
 def initialise_llms(key):
     openai_api_key=key
 
-    llm = OpenAI(openai_api_key=openai_api_key, temperature=0.2)
+    llm = OpenAI(openai_api_key=openai_api_key, temperature=0.2,max_retries= 1,)
 
     template = """
     Repo: {repo_name} ({github_url}) | Conv: {conversation_history} | Docs: {numbered_documents} | Q: {question} | FileCount: {file_type_counts} | FileNames: {filenames}
@@ -63,7 +63,7 @@ def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness):
     repo_name = github_url.split("/")[-1]
     # print(github_url)
     # input('11')
-
+    err=[]
     with tempfile.TemporaryDirectory() as local_path:
 
         if clone_github_repo(github_url, local_path):
@@ -71,8 +71,14 @@ def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness):
             index, documents, file_type_counts, filenames = load_and_index_files(local_path)
 
             if index is None:
-                print('Repo is empty')
-                return
+                # print('Repo is empty')
+                # err='Repo is empty'
+                answer={
+                    'score':0,
+                    'reasons':"Repo Empty",
+                    'repository':github_url
+                }
+                return answer,""
                 
                 #exit()
 
@@ -82,26 +88,32 @@ def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness):
 
             try:
          
-                
-                user_question =" " #input("\n" + WHITE + "Ask a question about the repository (type 'exit()' to quit): " + RESET_COLOR)
-                if user_question.lower() == "exit()":
-                    return
-                    #break
-                #print('Thinking...')
-                user_question = format_user_question(user_question)
 
                 answer = ask_question("Rate the techincal complexity of this github repo by comparing it with the top five most techincal complex github repo known to mankind", question_context,hardness)
-                answer['repository']=github_url
+                if answer:
+                    answer['repository']=github_url
+                else:
+                    err='Key exceeded the usage quota'
+                    
+                
                 #repos_complexity_dict.append(answer)
                 print(GREEN + '\nANSWER\n' + str(answer) + RESET_COLOR + '\n')
-                return answer
+                return answer,err
                 # #conversation_history += f"Question: {user_question}\nAnswer: {answer}\n"
                 # input()
             except Exception as e:
                 print(f"An error occurred: {e}")
+                return False,str(e)
                 #break
 
         else:
             print("Failed to clone the repository.")
+            answer={
+                    'score':0,
+                    'reasons':"Failed to Clone the repo Empty",
+                    'repository':github_url
+                }
+            return answer,'Failed to clone the repository.'
+            
 
 

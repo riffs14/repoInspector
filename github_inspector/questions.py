@@ -48,18 +48,20 @@ def ask_question(question, context: QuestionContext,hardness=10):
             )
             
             answer_with_sources = re.sub(' +', ' ', answer_with_sources)
-    
+        
             a=list(map(int, re.findall('\d+', answer_with_sources)))
            
             chr_ind=answer_with_sources.rfind('Reason:')
-            answer_with_sources=''.join([i for i in answer_with_sources if not i.isdigit()])
+            answer_with_sources = re.sub(r'[0-9]', ' ', answer_with_sources)
             reason=reason+answer_with_sources[chr_ind+len('Reason:'):]
             
             score=score+a[0]
 
             
         except Exception as e:
-            print(e)
+    
+            if str(e)=='<empty message>':
+                return False
 
             continue
 
