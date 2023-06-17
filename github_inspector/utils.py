@@ -55,16 +55,20 @@ def simple_validation(github_link,open_ai_key,submitted):
 
 def repo_link_collector(github_profile_link):
     list_repo=[]
-    github_link=os.path.join(git_api_url,github_profile_link,'repos')
-            
-    result = os.popen("curl "+github_link).read()
+    
     try:
+        github_link=os.path.join(git_api_url,github_profile_link,'repos')
+            
+        result = os.popen("curl "+github_link).read()
         json_object = json.loads(result)
 
         for count,i in enumerate(json_object):
             if i['visibility']=='public':
                 list_repo.append(i['html_url'])
     except:
+      
         return list_repo,""
-        #pass
+    if len(list_repo)<1:
+        return list_repo,""
+    
     return list_repo,result

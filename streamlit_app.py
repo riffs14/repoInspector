@@ -60,6 +60,7 @@ with st.form('summarize_form', clear_on_submit=True):
             hardness=exposure_dict[exposure_selected]
             
             list_repo,result=utils.repo_link_collector(github_link)
+            
             text_splitter,llm_chain,chain_sum,model_name=ai_handler.initialise_llms(open_ai_key)
             final_answer=[]
             for repo_count,repo in stqdm(enumerate(list_repo)):
@@ -77,6 +78,8 @@ with st.form('summarize_form', clear_on_submit=True):
             flag=True
             list_repo.append('Please enter a correct github link')
 
+if not len(list_repo):
+    st.info('User has No wroking Repository')
 
 if flag:
     st.info('Please enter a correct github link')
