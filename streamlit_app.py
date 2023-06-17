@@ -98,7 +98,7 @@ with st.form('summarize_form', clear_on_submit=True):
 
             #print(list_repo)
 
-            final_answer=sorted(final_answer, key=lambda i: i['score'])
+            sorted(final_answer, key=lambda i: i['score'])
 
         except:
             list_repo.append('Please enter a correct github link')
