@@ -3,10 +3,10 @@ import os
 import json
 
 
-st.title('🎈 Github Repo Quality Inspector')
+# Page title
 st.set_page_config(page_title='🦜🔗 Github Repo Quality Inspector')
 st.title('🦜🔗 Github Repo Quality Inspector')
-#st.write('Hello world!')
+
 github_link=st.text_input('Github Profile Link', type = 'default')
 result = os.popen("curl https://api.github.com/users/riffs14/repos ").read()
 json_object = json.loads(result)
