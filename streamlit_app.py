@@ -1,113 +1,109 @@
+#####################################################
+# Author        : Rahul Kumar Chaudhary             #
+# Email         : rkchaudhary.kvs@gmail.com         #
+# git username  : riffs14                           #
+#####################################################
+"""
+This File Contain the UI Logic
+
+"""
+# Important Liberary Import
 import streamlit as st
 import os
 import json
 import tempfile
-#from github_inspector import main
-import github_inspector.main_app as main_app
+import github_inspector.ai_handler as ai_handler
 from stqdm import stqdm
-
-exposure_option=['easy','mild','full']
-exposure_dict={'easy':1,'mild':10,'full':500}
-# Page title
-st.set_page_config(page_title='🦜🔗 Github Repo Quality Inspector')
-st.title('🦜🔗 Github Repo Quality Inspector')
-result=''
-github_link=st.text_input('Enter Github Profile Link or username', type = 'default')
-open_ai_key=st.text_input('Enter Your OpenAI API Key ', type = 'password',disabled=not github_link)
-exposure_selected=st.selectbox("Select The Mode of Inspector : ",options=exposure_option)
-github_link=os.path.basename(github_link)
-git_api_url='https://api.github.com/users/'
-list_repo=[]
-
+from github_inspector import utils
+from github_inspector.config import exposure_dict,exposure_option,git_api_url,result
 from github_inspector.file_processing import clone_github_repo, load_and_index_files
 from github_inspector.questions import ask_question, QuestionContext
 from github_inspector.utils import format_user_question
 from github_inspector.config import WHITE, GREEN, RESET_COLOR, model_name,openai_api_key
 
-def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name):
-    github_url =repo
-    repo_name = github_url.split("/")[-1]
+# Stream Line UI Starts Here
+# Page title
+st.set_page_config(page_title='🦜🔗 Github Repo Quality Inspector')
+st.title('🦜🔗 Github Repo Quality Inspector')
 
-    with tempfile.TemporaryDirectory() as local_path:
+############################   Must Have Fields ###########################################
+github_link=st.text_input('Enter Github Profile Link or username', type = 'default')
+open_ai_key=st.text_input('Enter Your OpenAI API Key ', type = 'password',disabled=not github_link)
 
-        if clone_github_repo(github_url, local_path):
-    
-            index, documents, file_type_counts, filenames = load_and_index_files(local_path)
+st.text("Instruction : Choose the Strictness level. It controll data processing.\n  Below are the details of differece strictness")
+st.text("Easy : 70 percent of un-necessary data are discarded. It is faster but less accurate")
+st.text("Mild : 50 percent of un-necessary data are discarded. ")
+st.text("Easy : agent doesn't discard any data. Slower but accurate. \n Use this if you have unlimited  api access")
+exposure_selected=st.selectbox("Select The Strictness of Inspector : ",options=exposure_option)
 
-            if index is None:
-                print('Repo is empty')
-                return
-                
-                #exit()
+############################################################################################
 
-            
-            conversation_history = ""
-            question_context = QuestionContext(index, documents,text_splitter, llm_chain,chain_sum, model_name, repo_name, github_url, conversation_history, file_type_counts, filenames)
-            #while True:
-            try:
-                
-                user_question =" " #input("\n" + WHITE + "Ask a question about the repository (type 'exit()' to quit): " + RESET_COLOR)
-                if user_question.lower() == "exit()":
-                    return
-                    #break
-                #print('Thinking...')
-                user_question = format_user_question(user_question)
+github_link=os.path.basename(github_link)
 
-                answer = ask_question("Rate the complexity of this repo by comparing it with the top five most complex repo known to mankind", question_context,hardness)
-                answer['repository']=github_url
-                #repos_complexity_dict.append(answer)
-                print(GREEN + '\nANSWER\n' + str(answer) + RESET_COLOR + '\n')
-                return answer
-                # #conversation_history += f"Question: {user_question}\nAnswer: {answer}\n"
-                # input()
-            except Exception as e:
-                print(f"An error occurred: {e}")
-                #break
-
-        else:
-            print("Failed to clone the repository.")
+list_repo=[]
 
 
+flag=False
 
+
+# On Submit Button Click
 with st.form('summarize_form', clear_on_submit=True):
     submitted = st.form_submit_button('Submit')
-    if submitted and len(github_link)>0:
+    if not open_ai_key.startswith('sk-'):
+        st.write('Enter a valid key')
+
+    if submitted and len(github_link)>0 and open_ai_key.startswith('sk-'):
         
         
         try:
-            print(exposure_selected)
+    
             hardness=exposure_dict[exposure_selected]
-            #print(github_link)
-            github_link=os.path.join(git_api_url,github_link,'repos')
-            #print("******************************")
-            result = os.popen("curl "+github_link).read()
             
-            #print(result)
-            json_object = json.loads(result)
-
-            for count,i in enumerate(json_object):
-                if i['visibility']=='public':
-                    list_repo.append(i['html_url'])
-            text_splitter,llm_chain,chain_sum,model_name=main_app.run(open_ai_key)
+            list_repo,result=utils.repo_link_collector(github_link)
+            text_splitter,llm_chain,chain_sum,model_name=ai_handler.initialise_llms(open_ai_key)
             final_answer=[]
             for repo_count,repo in stqdm(enumerate(list_repo)):
-                if repo_count>1:
+                if repo_count>0:
                     break
-                ans=start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name)
+                ans=ai_handler.start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness)
                 final_answer.append(ans)
 
-            #print(list_repo)
+            
 
-            sorted(final_answer, key=lambda i: i['score'])
+            final_answer=sorted(final_answer, key=lambda i: i['score'])
 
         except:
+            result=""
+            flag=True
             list_repo.append('Please enter a correct github link')
 
 
-
+if flag:
+    st.info('Please enter a correct github link')
 if len(result):
-    if len(list_repo)==0:
-        st.info("user has no pulic repo")
+
+    st.subheader("Woo!! Most Complex Repo Found")
+    st.text("***********************************************************************************")
+    st.write({
+        "Most Complex Repository : ": os.path.basename(final_answer[0]['repository']),
+        "Reason": final_answer[0]['reasons'],
+        "Repo Link " : final_answer[0]['repository']
+    })
+    
+    if len(final_answer)>3:
+        st.text("***********************************************************************************")
+        st.text("Here are rest top Three Repo from the profile ")
+        st.write([{
+            "Most Complex Repository : ": os.path.basename(final_answer[i]['repository']),
+            "Reason": final_answer[i]['reasons'],
+            "Repo Link " : final_answer[i]['repository']
+        } for i in range(3)])
+    st.text("***********************************************************************************")
+    st.text("Here is the Weakest  Repo from the profile ")
+    st.write({
+        "Most Complex Repository : ": os.path.basename(final_answer[-1]['repository']),
+        "Reason": final_answer[-1]['reasons'],
+        "Repo Link " : final_answer[-1]['repository']
+    })
 
 
-    st.info(final_answer[0])

@@ -8,9 +8,12 @@ from rank_bm25 import BM25Okapi
 from langchain.document_loaders import DirectoryLoader, NotebookLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from github_inspector.utils import clean_and_tokenize
-from github_inspector.config import openai_api_key
+from github_inspector.config import openai_api_key,extensions
 
 def clone_github_repo(github_url, local_path):
+    """
+    This Function Clone the Repo to a temporary location 
+    """
     try:
         subprocess.run(['git', 'clone', github_url, local_path], check=True)
         return True
@@ -19,7 +22,10 @@ def clone_github_repo(github_url, local_path):
         return False
 
 def load_and_index_files(repo_path):
-    extensions = ['txt', 'md', 'markdown', 'rst', 'py', 'js', 'java', 'c', 'cpp', 'cs', 'go', 'rb', 'php', 'scala', 'html', 'htm', 'xml', 'json', 'yaml', 'yml', 'ini', 'toml', 'cfg', 'conf', 'sh', 'bash', 'css', 'scss', 'sql', 'gitignore', 'dockerignore', 'editorconfig', 'ipynb']
+    """
+    Read All the files the in the repo based on file extention, Pre-preocess the data, Remove Comments,and un-nessary tokens.
+    Create a documents chunks and sort the chunk based on the relevence with the query. 
+    """
 
     file_type_counts = {}
     documents_dict = {}
@@ -55,11 +61,7 @@ def load_and_index_files(repo_path):
     for file_id, original_doc in documents_dict.items():
         split_docs = text_splitter.split_documents([original_doc])
         for split_doc in split_docs:
-            # if len(split_doc.page_content)>4500:
-            #     print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-            #     print(len(split_doc.page_content))
-            #     input()
-
+  
             split_doc.metadata['file_id'] = original_doc.metadata['file_id']
             split_doc.metadata['source'] = original_doc.metadata['source']
 

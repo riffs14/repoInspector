@@ -2,7 +2,6 @@
 from github_inspector.utils import format_documents
 from github_inspector.file_processing import search_documents
 from langchain.docstore.document import Document
-
 import json
 from tqdm import tqdm
 import re
@@ -67,6 +66,6 @@ def ask_question(question, context: QuestionContext,hardness=10):
     texts = context.text_splitter.split_text(reason)
     docs = [Document(page_content=t) for t in texts]
     output_summary = context.chain_sum({"input_documents": docs}, return_only_outputs=True)
-    final_ans['reasons : ']=output_summary['output_text']
+    final_ans['reasons']=output_summary['output_text']
 
     return final_ans
