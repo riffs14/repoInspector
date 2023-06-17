@@ -10,7 +10,7 @@ result=''
 github_link=st.text_input('Github Profile Link', type = 'default')
 with st.form('summarize_form', clear_on_submit=True):
     submitted = st.form_submit_button('Submit')
-    if submitted and len(github_link):
+    if submitted and len(github_link)>0:
         result = os.popen("curl github_link ").read()
         json_object = json.loads(result)
         list_repo=[]
