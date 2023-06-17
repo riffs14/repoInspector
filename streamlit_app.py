@@ -87,8 +87,8 @@ with st.form('summarize_form', clear_on_submit=True):
             # print(final_answer)
             final_answer=[i for i in final_answer if type(i)==dict]
             final_answer=sorted(final_answer, key=lambda i: i['score'],reverse=True)
-            with open('result.json','w') as f:
-                json.dump(final_answer,f,indent=4)
+            # with open('result.json','w') as f:
+            #     json.dump(final_answer,f,indent=4)
             # print(final_answer)
             # print("***************8")
             # print("bb")
