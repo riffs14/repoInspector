@@ -46,6 +46,14 @@ list_repo=[]
 flag=False
 
 
+# Disable the submit button after it is clicked
+def disable():
+    st.session_state.disabled = True
+
+# Initialize disabled for form_submit_button to False
+if "disabled" not in st.session_state:
+    st.session_state.disabled = False
+
 # On Submit Button Click
 with st.form('summarize_form', clear_on_submit=True):
     submitted = st.form_submit_button('Submit')
@@ -64,8 +72,7 @@ with st.form('summarize_form', clear_on_submit=True):
             text_splitter,llm_chain,chain_sum,model_name=ai_handler.initialise_llms(open_ai_key)
             final_answer=[]
             for repo_count,repo in stqdm(enumerate(list_repo)):
-                if repo_count>0:
-                    break
+              
                 ans=ai_handler.start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness)
                 final_answer.append(ans)
 
@@ -78,7 +85,7 @@ with st.form('summarize_form', clear_on_submit=True):
             flag=True
             list_repo.append('Please enter a correct github link')
 
-if not len(list_repo):
+if submitted and not len(list_repo):
     st.info('User has No wroking Repository')
 
 if flag:
