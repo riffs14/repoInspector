@@ -1,0 +1,37 @@
+[
+    {
+        "score": 67.1,
+        "reasons": "\n\nThe segmentation_models.pytorch GitHub repo is a highly technical repository, scoring a 10/10 on a scale of complexity. It contains a wide range of convolutional neural network architectures, such as ResNet, RegNet, SE-ResNet, NFNet, and PNASNet, as well as a range of encoders for image segmentation tasks. Additionally, it provides a range of tools for training and evaluating models, such as loss functions, optimizers, and metrics. This makes it one of the most technically complex GitHub repos known to mankind.",
+        "repository": "https://github.com/chugharun/segmentation_models.pytorch"
+    },
+    {
+        "score": 58.3,
+        "reasons": "\n\nThis repository provides a powerful tool for machine learning research, featuring convolutional neural networks, batch normalization, and other advanced techniques. It offers a variety of configuration options and scripts for training and evaluating models, allowing users to customize their models to their specific needs.",
+        "repository": "https://github.com/chugharun/Adabelief-reproduction-for-ml2"
+    },
+    {
+        "score": 52.2,
+        "reasons": "\n\nThis GitHub repo is relatively simple and contains a total of 8 files, 4 of which are JavaScript files, 1 HTML file, and 3 CSS files. The code is well-structured and easy to read, and the repo is well-documented, making it easier to understand. It does not require a high level of technical expertise to understand.",
+        "repository": "https://github.com/chugharun/cmsfrontend"
+    },
+    {
+        "score": 46.8,
+        "reasons": "",
+        "repository": "https://github.com/chugharun/CMS-frontend"
+    },
+    {
+        "score": 39.1,
+        "reasons": "\n\nThis GitHub repository is relatively simple, containing only one JSON file and no complex code or algorithms. It does not contain any additional files, such as code or documentation, which would increase its complexity. As a result, the technical complexity of this repo is low, scoring around a 3 on a scale of 1 to 5.",
+        "repository": "https://github.com/chugharun/ml2a3"
+    },
+    {
+        "score": 33.1,
+        "reasons": "\n\nThis GitHub repository is a great starting point for beginners, as it contains a small number of files written in simple languages such as Python, JavaScript, HTML, YAML, and CSS. The code is straightforward and does not contain any complex algorithms or data structures, making it easy to understand. The technical complexity score of the repository is low, making it an ideal choice for those just starting out.",
+        "repository": "https://github.com/chugharun/get-started-python"
+    },
+    {
+        "score": 32.5,
+        "reasons": "\n\nThe MS-backend repo has a high technical complexity score, containing a large number of Java files and a variety of components, technologies, and tests. Despite its complexity, the code is well-structured and easy to read, making it easier to understand and debug.",
+        "repository": "https://github.com/chugharun/CMS-backend"
+    }
+]

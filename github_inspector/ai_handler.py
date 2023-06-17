@@ -90,7 +90,7 @@ def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness):
                 #print('Thinking...')
                 user_question = format_user_question(user_question)
 
-                answer = ask_question("Rate the complexity of this repo by comparing it with the top five most complex repo known to mankind", question_context,hardness)
+                answer = ask_question("Rate the techincal complexity of this github repo by comparing it with the top five most techincal complex github repo known to mankind", question_context,hardness)
                 answer['repository']=github_url
                 #repos_complexity_dict.append(answer)
                 print(GREEN + '\nANSWER\n' + str(answer) + RESET_COLOR + '\n')

@@ -1,0 +1,37 @@
+[
+    {
+        "score": 66.2,
+        "reasons": "\n\nThis repository provides a comprehensive set of convolutional neural network architectures and pre-trained models for image segmentation, as well as tools for training and evaluating models. It is highly technical and comes with detailed documentation.",
+        "repository": "https://github.com/chugharun/segmentation_models.pytorch"
+    },
+    {
+        "score": 56.0,
+        "reasons": "\n\nThe MS-frontend repo has a moderate complexity score due to its variety of languages and number of files. It contains JavaScript, HTML, CSS, and SCSS files, and the code is well-structured and organized. The complexity of the code is moderate, with some more advanced features such as React components and styling.",
+        "repository": "https://github.com/chugharun/CMS-frontend"
+    },
+    {
+        "score": 46.4,
+        "reasons": "\n\nThis GitHub repo contains a single JSON file with data related to images and their associated captions. It is organized into folders for easy navigation and includes detailed documentation to explain the code. Additionally, the repo includes a convolutional neural network, a complex machine learning algorithm. It requires a certain level of technical knowledge to understand and use the data, but is not as complex as the top five most technical complex GitHub repos.",
+        "repository": "https://github.com/chugharun/ml2a3"
+    },
+    {
+        "score": 45.8,
+        "reasons": "\n\nThe Adabelief-reproduction-for-ml repository is a moderately complex repository that uses advanced optimizers such as RAdam, AdamW, and Adabelief, and PyTorch for training MNIST. It also has customizable arguments for the training process, such as learning rate, momentum, and weight decay, making it more complex than the top five most technical complex github repos.",
+        "repository": "https://github.com/chugharun/Adabelief-reproduction-for-ml2"
+    },
+    {
+        "score": 29.2,
+        "reasons": "\n\nThis GitHub repo has a low technical complexity score and contains simple files such as HTML, CSS, JavaScript, Python, and YAML. It does not contain any complex algorithms or data structures, making it less complex than the top five most technical complex GitHub repos.",
+        "repository": "https://github.com/chugharun/get-started-python"
+    },
+    {
+        "score": 28.6,
+        "reasons": "\n\nThe MS-backend repo is a relatively complex GitHub repo with a technical complexity score of /. It contains Java files that are well-structured and organized, as well as features such as authentication, authorization, and data encoding. Additionally, the repo includes libraries and frameworks like Spring Boot and ModelMapper, which add to its complexity.",
+        "repository": "https://github.com/chugharun/CMS-backend"
+    },
+    {
+        "score": 16.4,
+        "reasons": "\n\nThis GitHub repo is suitable for beginners, as it has a low technical complexity and straightforward code. It consists of 3 JavaScript files, 1 HTML file, and 1 CSS file. There are no complex algorithms or data structures included.",
+        "repository": "https://github.com/chugharun/cmsfrontend"
+    }
+]

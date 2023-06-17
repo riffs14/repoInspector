@@ -1,0 +1,37 @@
+[
+    {
+        "score": 64.0,
+        "reasons": "\n\nThe MS-frontend repo has a high technical complexity score due to its large number of files, which include JavaScript, HTML, CSS, and SCSS, as well as the complexity of the code within each file. The repo also contains a variety of components and libraries, such as React and Bootstrap, which further adds to the complexity of the repo.",
+        "repository": "https://github.com/chugharun/CMS-frontend"
+    },
+    {
+        "score": 62.2,
+        "reasons": "\n\nThe segmentation_models.pytorch GitHub repo is a powerful tool for image segmentation, containing a wide range of deep learning models such as ResNet, ResNeXt, SENet, Xception, HRNet, and Halonet. It also includes pre-trained weights, datasets, and detailed documentation and tutorials, making it highly complex and difficult to use, but also very powerful.",
+        "repository": "https://github.com/chugharun/segmentation_models.pytorch"
+    },
+    {
+        "score": 46.0,
+        "reasons": "\n\nThis Github repo is a simple one, containing only one JSON file and straightforward code that is easy to understand. It does not contain any complex algorithms or convolutional layers, and there is no documentation provided. This makes it simpler than the top five most technical complex Github repos, making it easier to understand and use.",
+        "repository": "https://github.com/chugharun/ml2a3"
+    },
+    {
+        "score": 44.8,
+        "reasons": "\n\nThis article discusses the importance of having a good work-life balance. It explains that having a good balance between work and life can lead to increased productivity, improved mental and physical health, and better relationships. It also provides tips on how to achieve a better balance, such as setting boundaries, taking breaks, and prioritizing self-care. Finally, it emphasizes the importance of taking time to relax and enjoy life.",
+        "repository": "https://github.com/chugharun/Adabelief-reproduction-for-ml2"
+    },
+    {
+        "score": 39.2,
+        "reasons": "\n\nThis GitHub repo is a well-organized and easy-to-read collection of files, including Python, JavaScript, HTML, YAML, YML, and CSS. It has a technical complexity score of / on a scale of 1 to 10 and contains some more complex elements such as parser syntax and regular expressions. The code is well commented and documented, making it easier to understand. Additionally, the repo is dual-licensed, making it suitable for commercial projects.",
+        "repository": "https://github.com/chugharun/get-started-python"
+    },
+    {
+        "score": 36.2,
+        "reasons": "\n\nThis GitHub repository has a low technical complexity, with a score of around / on a scale of to . It contains 3 JavaScript files, 1 HTML file, and 1 CSS file. The code is well-structured and easy to read, with no complex algorithms or data structures used. It is also well commented and documented, making it a relatively simple repository compared to the top five most technical complex GitHub repos.",
+        "repository": "https://github.com/chugharun/cmsfrontend"
+    },
+    {
+        "score": 28.6,
+        "reasons": "\n\nThe MS-backend repo is one of the most technically complex GitHub repos known to mankind, with a complexity score of /. It contains a variety of Java files that are well-structured and organized, as well as advanced features such as an ordEncoder, signUpAdmin, signInAdmin, and more, which are implemented using techniques like ModelMapper and HcodeService.",
+        "repository": "https://github.com/chugharun/CMS-backend"
+    }
+]

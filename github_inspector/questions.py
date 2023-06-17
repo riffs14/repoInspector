@@ -30,7 +30,7 @@ def ask_question(question, context: QuestionContext,hardness=10):
     score=0
     reason=""
     final_ans={}
-    for numbered_documents in tqdm(numbered_documents_list):
+    for numbered_documents in numbered_documents_list:
   
         question_context = f"This question is about the GitHub repository '{context.repo_name}' available at {context.github_url}. The most relevant documents are:\n\n{numbered_documents}"
  
@@ -52,6 +52,7 @@ def ask_question(question, context: QuestionContext,hardness=10):
             a=list(map(int, re.findall('\d+', answer_with_sources)))
            
             chr_ind=answer_with_sources.rfind('Reason:')
+            answer_with_sources=''.join([i for i in answer_with_sources if not i.isdigit()])
             reason=reason+answer_with_sources[chr_ind+len('Reason:'):]
             
             score=score+a[0]

@@ -71,19 +71,33 @@ with st.form('summarize_form', clear_on_submit=True):
             
             text_splitter,llm_chain,chain_sum,model_name=ai_handler.initialise_llms(open_ai_key)
             final_answer=[]
-            for repo_count,repo in stqdm(enumerate(list_repo)):
-              
-                ans=ai_handler.start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness)
-                final_answer.append(ans)
+            try:
+                for repo_count,repo in stqdm(enumerate(list_repo)):
+                    print(repo,repo_count)
+                   
+                    ans=ai_handler.start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness)
+                    final_answer.append(ans)
 
-            
-
-            final_answer=sorted(final_answer, key=lambda i: i['score'])
+                
+                
+            except: 
+                st.info(f'Only {repo_count+1} was analyzed. Error Occured, Please change key or run code again')
+           
+            # print("aa")
+            # print(final_answer)
+            final_answer=[i for i in final_answer if type(i)==dict]
+            final_answer=sorted(final_answer, key=lambda i: i['score'],reverse=True)
+            with open('result.json','w') as f:
+                json.dump(final_answer,f,indent=4)
+            # print(final_answer)
+            # print("***************8")
+            # print("bb")
 
         except:
             result=""
             flag=True
             list_repo.append('Please enter a correct github link')
+
 
 if submitted and not len(list_repo):
     st.info('User has No wroking Repository')
@@ -104,7 +118,7 @@ if len(result):
         st.text("***********************************************************************************")
         st.text("Here are rest top Three Repo from the profile ")
         st.write([{
-            "Most Complex Repository : ": os.path.basename(final_answer[i]['repository']),
+            str(i)+"Complex Repository : ": os.path.basename(final_answer[i]['repository']),
             "Reason": final_answer[i]['reasons'],
             "Repo Link " : final_answer[i]['repository']
         } for i in range(3)])
