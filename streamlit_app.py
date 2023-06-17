@@ -32,5 +32,5 @@ with st.form('summarize_form', clear_on_submit=True):
 
 
 
-if len(result):
-    st.info(list_repo)
+#if len(result):
+st.info(list_repo)
