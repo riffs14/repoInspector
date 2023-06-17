@@ -22,8 +22,9 @@ with st.form('summarize_form', clear_on_submit=True):
             #print("******************************")
             result = os.popen("curl "+github_link).read()
             
-            #print(result)
+            print(result)
             json_object = json.loads(result)
+
             for count,i in enumerate(json_object):
                 if i['visibility']=='public':
                     list_repo.append(i['html_url'])
@@ -34,4 +35,8 @@ with st.form('summarize_form', clear_on_submit=True):
 
 
 if len(result):
+    if len(list_repo)==0:
+        st.info("user has no pulic repo")
+
+
     st.info(list_repo)
