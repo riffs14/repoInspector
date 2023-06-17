@@ -10,11 +10,12 @@ result=''
 github_link=st.text_input('Enter Github Profile Link or username', type = 'default')
 github_link=os.path.basename(github_link)
 git_api_url='https://api.github.com/users/'
+list_repo=[]
 with st.form('summarize_form', clear_on_submit=True):
     submitted = st.form_submit_button('Submit')
     if submitted and len(github_link)>0:
         
-        list_repo=[]
+        
         try:
             #print(github_link)
             github_link=os.path.join(git_api_url,github_link,'repos')
