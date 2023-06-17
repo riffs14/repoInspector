@@ -65,5 +65,6 @@ def repo_link_collector(github_profile_link):
             if i['visibility']=='public':
                 list_repo.append(i['html_url'])
     except:
-        pass
+        return list_repo,""
+        #pass
     return list_repo,result
