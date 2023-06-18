@@ -33,7 +33,7 @@ open_ai_key=st.text_input('Enter Your OpenAI API Key ', type = 'password',disabl
 st.text("Instruction : Choose the Strictness level. It controll data processing.\n  Below are the details of differece strictness")
 st.text("Easy : 70 percent of un-necessary data are discarded. It is faster but less accurate")
 st.text("Mild : 50 percent of un-necessary data are discarded. ")
-st.text("Easy : agent doesn't discard any data. Slower but accurate. \n Use this if you have unlimited  api access")
+st.text("Full : agent doesn't discard any data. Slower but accurate. \n Use this if you have unlimited  api access")
 exposure_selected=st.selectbox("Select The Strictness of Inspector : ",options=exposure_option)
 
 ############################################################################################

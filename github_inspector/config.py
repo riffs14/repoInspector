@@ -1,4 +1,8 @@
 #config.py
+"""
+This File Contains Global Variable
+"""
+
 WHITE = "\033[37m"
 GREEN = "\033[32m"
 RESET_COLOR = "\033[0m"
@@ -14,5 +18,3 @@ git_api_url='https://api.github.com/users/'
 
 result=''
 extensions = ['rst', 'py', 'js', 'java', 'c', 'cpp', 'cs', 'go', 'rb', 'php', 'scala', 'html', 'htm', 'xml', 'json', 'yaml', 'yml', 'ini', 'toml', 'cfg', 'conf', 'sh', 'bash', 'css', 'scss', 'sql', 'gitignore', 'dockerignore', 'editorconfig', 'ipynb']
-
-['most Complex','Moderate',]

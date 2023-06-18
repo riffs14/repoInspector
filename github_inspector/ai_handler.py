@@ -1,3 +1,7 @@
+"""
+
+"""
+
 #main.py
 import os
 import tempfile
@@ -14,7 +18,10 @@ from tqdm import tqdm
 from langchain.chains.summarize import load_summarize_chain
 
 load_dotenv()
-
+"""
+This Function Initialize the Language Model
+This require the OpenAI API Key
+"""
 def initialise_llms(key):
     openai_api_key=key
 
@@ -27,9 +34,7 @@ def initialise_llms(key):
 
     Answer:
     """
-    # Instr: return a dictionary with the following key 
-    # "score":On a scale of 1 to 100 give the repo score based on its complexity 
-    # "reason" : why did it deserv that score ?
+    
     prompt_complex = PromptTemplate(
         template=template,
         input_variables=["repo_name", "github_url", "conversation_history", "question", "numbered_documents", "file_type_counts", "filenames"]
@@ -57,7 +62,11 @@ def initialise_llms(key):
     return text_splitter, llm_chain,chain_sum, model_name
 
 
+"""
+This Functio Recieve the documents and Repo details along with language model, and formulate 
+Question and generate Response
 
+"""
 def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness):
     github_url =repo
     repo_name = github_url.split("/")[-1]
@@ -88,22 +97,23 @@ def start_inspector(repo,text_splitter,llm_chain,chain_sum,model_name,hardness):
 
             try:
          
-
                 answer = ask_question("Rate the techincal complexity of this github repo by comparing it with the top five most techincal complex github repo known to mankind", question_context,hardness)
+                
                 if answer:
                     answer['repository']=github_url
                 else:
                     err='Key exceeded the usage quota'
                     
-                
+                # print(answer)
+                # input()
                 #repos_complexity_dict.append(answer)
                 print(GREEN + '\nANSWER\n' + str(answer) + RESET_COLOR + '\n')
                 return answer,err
                 # #conversation_history += f"Question: {user_question}\nAnswer: {answer}\n"
                 # input()
             except Exception as e:
-                print(f"An error occurred: {e}")
-                return False,str(e)
+                print(f"An error occurred: {e} or key expired")
+                return False,str(e)+" or key expired Please try by changing the key"
                 #break
 
         else:

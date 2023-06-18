@@ -1,4 +1,4 @@
-# 📦 Streamlit App Starter Kit 
+# 📦 Automated Github Analysis
 ```
 ⬆️ (Replace above with your app's name)
 ```

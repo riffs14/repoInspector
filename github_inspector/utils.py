@@ -28,7 +28,7 @@ def format_documents(documents,hardness):
         numbered_docs_list.append(numbered_docs[ind:ind+4000])
         # print(len(numbered_docs_list))
         # input("iun util file ,")
-        ind=ind+5000
+        ind=ind+4000
     # if len(numbered_docs)>4000:
     #     numbered_docs=numbered_docs[:10]
     return numbered_docs_list[:hardness]

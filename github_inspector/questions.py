@@ -1,4 +1,10 @@
-# questions.py
+# 
+
+
+"""
+This file run the language model by providing with prompt and question context.
+Here the data is pre-processed and pass to language model
+"""
 from github_inspector.utils import format_documents
 from github_inspector.file_processing import search_documents
 from langchain.docstore.document import Document
@@ -26,15 +32,19 @@ def ask_question(question, context: QuestionContext,hardness=10):
 
     
     numbered_documents_list = format_documents(relevant_docs,hardness)
-
+    
     score=0
     reason=""
     final_ans={}
     for numbered_documents in numbered_documents_list:
+        
+
   
         question_context = f"This question is about the GitHub repository '{context.repo_name}' available at {context.github_url}. The most relevant documents are:\n\n{numbered_documents}"
  
         try:
+            
+            
             answer_with_sources = context.llm_chain.run(
                 model=context.model_name,
                 question=question,
@@ -46,8 +56,11 @@ def ask_question(question, context: QuestionContext,hardness=10):
                 file_type_counts=context.file_type_counts,
                 filenames=[]#context.filenames
             )
+
             
             answer_with_sources = re.sub(' +', ' ', answer_with_sources)
+            # print("ans",answer_with_sources)
+            # input("4")
         
             a=list(map(int, re.findall('\d+', answer_with_sources)))
            
