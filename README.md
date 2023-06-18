@@ -16,9 +16,16 @@ This repo contains code to find most technically complex repository. This app is
 ## Instruction To Run The Code
 
 Follow these instruction in order to run this repo.
-- 1. Clone the repo using command. 
+- Clone the repo using command. 
 ```
 git clone https://github.com/riffs14/repoInspector.git
 ```
-- Resource 2
-- Resource 3
+- Install all the required liberaries
+```
+pip install -r requirements.txt
+```
+
+- run the code using command :
+```
+streamlit run streamlit_app.py
+```
