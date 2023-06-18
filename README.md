@@ -1,6 +1,6 @@
 # 📦 Automated Github Analysis
 ```
-⬆️ (Replace above with your app's name)
+⬆️ (Repo Quality Inspector)
 ```
 
 Description of the app ...
@@ -9,13 +9,16 @@ Description of the app ...
 
 [![Streamlit App](https://riffs14-repoinspector-streamlit-app-li9k4k.streamlit.app//)
 
-## Section Heading
+## About The App. 
 
-This repo contains code to find most technically complex repository. 
+This repo contains code to find most technically complex repository. This app is based on chatGPT
 
-## Further Reading
+## Instruction To Run The Code
 
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
-- Resource 1
+Follow these instruction in order to run this repo.
+- 1. Clone the repo using command. 
+```
+git clone https://github.com/riffs14/repoInspector.git
+```
 - Resource 2
 - Resource 3
