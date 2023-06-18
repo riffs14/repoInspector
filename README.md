@@ -7,11 +7,11 @@ Description of the app ...
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://starter-kit.streamlitapp.com/)
+[![Streamlit App](https://riffs14-repoinspector-streamlit-app-li9k4k.streamlit.app//)
 
 ## Section Heading
 
-This is filler text, please replace this with text for this section.
+This repo contains code to find most technically complex repository. 
 
 ## Further Reading
 
