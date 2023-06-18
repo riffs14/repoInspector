@@ -7,7 +7,7 @@ Description of the app ...
 
 ## Demo App
 
-[![Streamlit App](https://riffs14-repoinspector-streamlit-app-li9k4k.streamlit.app//)
+[![Streamlit App](https://riffs14-repoinspector-streamlit-app-li9k4k.streamlit.app/)
 
 ## About The App. 
 
